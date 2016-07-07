@@ -1,0 +1,40 @@
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  background: #f0f0f0;
+  width: 325px;
+  padding: .5em;
+}
+
+h1 {
+  margin: 0 0 .5em 0;
+  text-align: center;
+}
+
+h1 img {
+  vertical-align: bottom;
+  margin-right: .25em;
+}
+
+.group {
+  border-top: 2px solid #f2b600
+}
+
+/* Manage groups that should show only when we are on a familysearch page */
+
+.group.familysearch {
+  display: none;
+}
+
+body.familysearch .group.familysearch {
+  display: block;
+}
+
+/* Manage groups that should show only when we're not on a familysearch page */
+
+body.familysearch .no-familysearch {
+  display: none;
+}
+
+body:not(.familysearch) .no-familysearch {
+  display: block;
+}
