@@ -6,16 +6,19 @@
   <body>
     <h1><img src="../icons/icon-32.png" />WikiTree Importer</h1>
 
+    <div class="group">
+      <h2>Update an Existing WikiTree Profile</h2>
+      <input type="input" id="update-existing-wt-id" placeholder="WikiTree ID" />
+      <button id="update-existing-btn">Go</button>
+    </div>
+
     <div class="group familysearch">
       <h2>FamilySearch Connections</h2>
       <input type="input" id="fs-connections-wt-id" placeholder="WikiTree ID" />
       <button id="fs-connections-btn">Go</button>
     </div>
 
-    <div class="group no-familysearch">
-      <h4>This extension currently only works on FamilySearch profiles.</h4>
-    </div>
-
+    <script src="../includes/genscrape.0.1.6.min.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

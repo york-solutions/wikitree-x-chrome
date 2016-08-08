@@ -1,16 +1,31 @@
 var tabData, fsID;
 
-// Get the current page data
+// Initiate the scraping
 chrome.runtime.getBackgroundPage(function(background){
-  background.getActiveTabData(function(_tabData){
-    tabData = _tabData;
+  background.getTabData();
+});
+
+// Listen for the scraping response
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if(request.type === 'tabData'){
+
+    // Save the response
+    tabData = request;
+
+    // Hide the loading indicator
     document.body.classList.add('loaded');
+
+    // Show FamilySearch components on FamilySearch pages
     fsID = getFSID(tabData.url);
     if(fsID){
       document.body.classList.add('familysearch');
     }
-  });
+  }
 });
+
+//
+// Setup button listeners
+//
 
 document.getElementById('fs-connections-btn').addEventListener('click', function(){
   var wtID = document.getElementById('fs-connections-wt-id').value;
@@ -19,6 +34,13 @@ document.getElementById('fs-connections-btn').addEventListener('click', function
   });
 });
 
+//
+// Helper methods
+//
+
 function getFSID(url){
-  return url.match(/^https:\/\/familysearch.org\/tree\/.*person=([\w-]+)/)[1];
+  var matches = url.match(/^https:\/\/familysearch.org\/tree\/.*person=([\w-]+)/);
+  if(matches){
+    return [1];
+  }
 }

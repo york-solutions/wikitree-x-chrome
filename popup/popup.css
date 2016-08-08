@@ -30,6 +30,8 @@ body.familysearch .group.familysearch {
 }
 
 /* Manage groups that should show only when we're not on a familysearch page */
+/* I don't think we use these anymore. I believe it was added when the extension */
+/* was originally created and only worked on familysearch.org */
 
 body.familysearch .no-familysearch {
   display: none;
