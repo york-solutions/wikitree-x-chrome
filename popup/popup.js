@@ -34,6 +34,11 @@ document.getElementById('fs-connections-btn').addEventListener('click', function
   });
 });
 
+document.getElementById('update-existing-btn').addEventListener('click', function(){
+  var wtID = document.getElementById('update-existing-wt-id').value;
+  postData('https://httpbin.org/post', tabData.genscrape);
+});
+
 //
 // Helper methods
 //
@@ -43,4 +48,17 @@ function getFSID(url){
   if(matches){
     return [1];
   }
+}
+
+/**
+ * POST JSON data to the specified URL
+ *
+ * @param  {[type]} url  [description]
+ * @param  {[type]} data [description]
+ */
+function postData(url, data){
+  var form = document.getElementById('form');
+  form.action = url;
+  document.getElementById('postData').value = JSON.stringify(data);
+  form.submit();
 }
