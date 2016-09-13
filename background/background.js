@@ -1,5 +1,3 @@
-var data = {};
-
 /**
  * Get the URL and genscrape data of the active tab.
  *

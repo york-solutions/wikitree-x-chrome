@@ -1,4 +1,6 @@
-var tabData, fsID;
+var tabData, fsID,
+    dev = chrome.app.getDetails().update_url ? false : true,
+    postUrl = dev ? 'http://dev4.wikitree.com/wiki/Special:MergeEdit' : 'https://httpbin.org/post';
 
 // Initiate the scraping
 chrome.runtime.getBackgroundPage(function(background){
@@ -36,7 +38,7 @@ document.getElementById('fs-connections-btn').addEventListener('click', function
 
 document.getElementById('update-existing-btn').addEventListener('click', function(){
   var wtID = document.getElementById('update-existing-wt-id').value;
-  postData('https://httpbin.org/post', tabData.genscrape);
+  postData(postUrl, wtID, tabData.genscrape);
 });
 
 //
@@ -53,12 +55,14 @@ function getFSID(url){
 /**
  * POST JSON data to the specified URL
  *
- * @param  {[type]} url  [description]
- * @param  {[type]} data [description]
+ * @param  {string} url
+ * @param  {string} profileId
+ * @param  {object} data
  */
-function postData(url, data){
+function postData(url, profileId, data){
   var form = document.getElementById('form');
   form.action = url;
+  document.getElementById('wtID').value = profileId;
   document.getElementById('postData').value = JSON.stringify(data);
   form.submit();
 }
