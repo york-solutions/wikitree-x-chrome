@@ -69,10 +69,8 @@ function postData(url, profileId, data){
   // Decide whether we have a user ID or a profile name
   if(parseInt(profileId, 10)){
     $wtId.value = profileId;
-    // $wtUsername.remove();
   } else {
     $wtUsername.value = profileId;
-    // $wtId.remove();
   }
 
   document.getElementById('postData').value = JSON.stringify(data);
