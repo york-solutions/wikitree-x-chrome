@@ -60,9 +60,21 @@ function getFSID(url){
  * @param  {object} data
  */
 function postData(url, profileId, data){
-  var form = document.getElementById('form');
-  form.action = url;
-  document.getElementById('wtID').value = profileId;
+  var $form = document.getElementById('form'),
+      $wtId = document.getElementById('wtId'),
+      $wtUsername = document.getElementById('wtUsername');
+
+  $form.action = url;
+
+  // Decide whether we have a user ID or a profile name
+  if(parseInt(profileId, 10)){
+    $wtId.value = profileId;
+    // $wtUsername.remove();
+  } else {
+    $wtUsername.value = profileId;
+    // $wtId.remove();
+  }
+
   document.getElementById('postData').value = JSON.stringify(data);
-  form.submit();
+  $form.submit();
 }
