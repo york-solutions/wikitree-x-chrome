@@ -44,7 +44,7 @@ function getActiveTab(callback){
  */
 function genscrapeData(tabId){
   chrome.tabs.executeScript(tabId, {
-    file: 'includes/genscrape.1.0.3.min.js'
+    file: 'includes/genscrape.1.0.5.min.js'
   }, function(){
     chrome.tabs.executeScript(tabId, {
       code: genscrapeInject.toString() + ';genscrapeInject();'
@@ -62,6 +62,13 @@ function genscrapeInject(){
   genscrape()
     .on('data', sendMessage)
     .on('noData', function(){
+      sendMessage({});
+    })
+    .on('noMatch', function(){
+      sendMessage({});
+    })
+    .on('error', function(){
+      // TODO: error handling
       sendMessage({});
     });
 
