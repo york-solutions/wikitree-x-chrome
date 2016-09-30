@@ -59,11 +59,17 @@ function genscrapeData(tabId){
  * would be hard to maintain.
  */
 function genscrapeInject(){
-  genscrape().on('data', function(data){
+  genscrape()
+    .on('data', sendMessage)
+    .on('noData', function(){
+      sendMessage({});
+    });
+
+  function sendMessage(data){
     chrome.runtime.sendMessage({
       type: 'tabData',
       genscrape: data,
       url: document.location.href
     });
-  });
+  }
 }

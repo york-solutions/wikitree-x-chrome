@@ -29,21 +29,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // Setup button listeners
 //
 
-document.getElementById('fs-connections-btn').addEventListener('click', function(){
-  var wtID = document.getElementById('fs-connections-wt-id').value;
-  chrome.tabs.create({
-    url: 'http://www.wikitree.com/index.php?title=Special:EditFamilySearch&action=viewUser&user_name=' + wtID + '&fs_id=' + fsID
-  });
+document.getElementById('fs-connections-btn').addEventListener('click', fsConnect);
+
+document.getElementById('update-existing-btn').addEventListener('click', updateExisting);
+
+//
+// Input listeners so that forms are submitted on enter
+//
+document.getElementById('update-existing-wt-id').addEventListener('keypress', function(event){
+  if(enterPressed(event)){
+    updateExisting();
+  }
 });
 
-document.getElementById('update-existing-btn').addEventListener('click', function(){
-  var wtID = document.getElementById('update-existing-wt-id').value;
-  postData(postUrl, wtID, tabData.genscrape);
+document.getElementById('fs-connections-wt-id').addEventListener('keypress', function(event){
+  if(enterPressed(event)){
+    fsConnect();
+  }
 });
 
 //
 // Helper methods
 //
+
+function updateExisting(){
+  var wtID = document.getElementById('update-existing-wt-id').value;
+  postData(postUrl, wtID, tabData.genscrape);
+}
+
+function fsConnect(){
+  var wtID = document.getElementById('fs-connections-wt-id').value;
+  chrome.tabs.create({
+    url: 'http://www.wikitree.com/index.php?title=Special:EditFamilySearch&action=viewUser&user_name=' + wtID + '&fs_id=' + fsID
+  });
+}
 
 function getFSID(url){
   var matches = url.match(/^https:\/\/familysearch.org\/tree\/.*person=([\w-]+)/);
@@ -75,4 +94,15 @@ function postData(url, profileId, data){
 
   document.getElementById('postData').value = JSON.stringify(data);
   $form.submit();
+}
+
+/**
+ * Check if an event was fired by pressing the enter key
+ *
+ * @param {Event} event
+ * @return {Boolean}
+ */
+function enterPressed(event){
+  var key = event.which || event.keyCode;
+  return key === 13;
 }
