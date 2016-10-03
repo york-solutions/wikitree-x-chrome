@@ -18,8 +18,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     document.body.classList.add('loaded');
 
     // Show FamilySearch components on FamilySearch pages
-    fsID = getFSID(tabData.url);
-    if(fsID){
+    if(isFSTreeUrl(tabData.url)){
       document.body.classList.add('familysearch');
     }
   }
@@ -64,11 +63,14 @@ function fsConnect(){
   });
 }
 
-function getFSID(url){
-  var matches = url.match(/^https:\/\/familysearch.org\/tree\/.*person=([\w-]+)/);
-  if(matches){
-    return [1];
-  }
+/**
+ * Check if a URL is of a person in the FamilySearch tree.
+ *
+ * @param {String} url
+ * @return {Boolean}
+ */
+function isFSTreeUrl(url){
+  return url.indexOf('https://familysearch.org/tree/person/') === 0;
 }
 
 /**
