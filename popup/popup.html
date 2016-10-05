@@ -6,13 +6,31 @@
   <body>
     <h1><img src="../icons/icon-32.png" />WikiTree X</h1>
 
-    <div class="group">
+    <div class="group" id="update-existing">
       <h2>Update an Existing WikiTree Profile</h2>
       <input type="input" id="update-existing-wt-id" placeholder="WikiTree ID" />
       <button id="update-existing-btn">Go</button>
     </div>
 
-    <div class="group familysearch">
+    <div class="group" id="create-related">
+      <h2>Create Related WikiTree Profile</h2>
+      <input type="input" id="create-related-wt-id" placeholder="WikiTree ID" />
+      <select id="create-related-relation">
+        <option value="father">Father</option>
+        <option value="mother">Mother</option>
+        <option value="sibling">Sibling</option>
+        <option value="spouse">Spouse</option>
+        <option value="child">Child</option>
+      </select>
+      <button id="create-related-btn">Go</button>
+    </div>
+
+    <div class="group" id="create-unrelated">
+      <h2>Create Unrelated WikiTree Profile</h2>
+      <button id="create-unrelated-btn">Go</button>
+    </div>
+
+    <div class="group familysearch" id="fs-connections">
       <h2>FamilySearch Connections</h2>
       <input type="input" id="fs-connections-wt-id" placeholder="WikiTree ID" />
       <button id="fs-connections-btn">Go</button>
