@@ -67,7 +67,7 @@ function fsConnect(){
 function createRelated(){
   var wtID = document.getElementById('create-related-wt-id').value,
       relation = document.getElementById('create-related-relation').value;
-  postData(editFamilyUrl + '&title=N&w=' + relation + '&title=' + wtID, '', tabData.genscrape);
+  postData(editFamilyUrl + '&w=' + relation + '&title=' + wtID, '', tabData.genscrape);
 }
 
 /**
