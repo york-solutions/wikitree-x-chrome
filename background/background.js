@@ -44,7 +44,7 @@ function getActiveTab(callback){
  */
 function genscrapeData(tabId){
   chrome.tabs.executeScript(tabId, {
-    file: 'includes/genscrape.1.0.5.min.js'
+    file: 'includes/genscrape.1.1.0.min.js'
   }, function(){
     chrome.tabs.executeScript(tabId, {
       code: genscrapeInject.toString() + ';genscrapeInject();'
