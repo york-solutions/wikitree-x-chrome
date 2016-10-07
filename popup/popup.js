@@ -1,7 +1,8 @@
 var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
     mergeEditUrl = dev ? 'http://dev4.wikitree.com/wiki/Special:MergeEdit' : 'https://httpbin.org/post',
-    editFamilyUrl = dev ? 'http://dev4.wikitree.com/index.php?action=editfamily' : 'https://httpbin.org/post';
+    editFamilyUrl = dev ? 'http://dev4.wikitree.com/index.php?action=editfamily' : 'https://httpbin.org/post',
+    newPersonUrl = dev ? 'http://dev4.wikitree.com/wiki/Special:NewPerson' : 'https://httpbin.org/post';
 
 // Initiate the scraping
 chrome.runtime.getBackgroundPage(function(background){
@@ -74,7 +75,7 @@ function createRelated(){
  * Create a new profile related to the given WikiTree profile
  */
 function createUnrelated(){
-  postData(editFamilyUrl + '&w=new', '', tabData.genscrape);
+  postData(newPersonUrl, '', tabData.genscrape);
 }
 
 /**
