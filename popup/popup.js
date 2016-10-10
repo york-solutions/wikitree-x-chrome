@@ -41,9 +41,9 @@ document.getElementById('fs-connections-btn').addEventListener('click', fsConnec
 //
 //
 document.getElementById('update-existing').addEventListener('keypress', enterListener(updateExisting));
-document.getElementById('create-related').addEventListener('keypress', enterListner(createRelated));
-document.getElementById('create-unrelated').addEventListener('keypress', enterListner(createUnrelated));
-document.getElementById('fs-connections').addEventListener('keypress', enterListner(fsConnect));
+document.getElementById('create-related').addEventListener('keypress', enterListener(createRelated));
+document.getElementById('create-unrelated').addEventListener('keypress', enterListener(createUnrelated));
+document.getElementById('fs-connections').addEventListener('keypress', enterListener(fsConnect));
 
 /**
  * Update an existing person by POSTing gedcomx data to the MergeEdit page
