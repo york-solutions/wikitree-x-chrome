@@ -1,9 +1,9 @@
 var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
     domain = dev ? 'dev4' : 'www',
-    mergeEditUrl = 'http://' + domain + '.wikitree.com/wiki/Special:MergeEdit',
-    editFamilyUrl = 'http://' + domain + '.wikitree.com/index.php?action=editfamily',
-    newPersonUrl = 'http://' + domain + '.wikitree.com/wiki/Special:NewPerson';
+    mergeEditUrl = 'https://' + domain + '.wikitree.com/wiki/Special:MergeEdit',
+    editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
+    newPersonUrl = 'https://' + domain + '.wikitree.com/wiki/Special:NewPerson';
 
 // Initiate the scraping
 chrome.runtime.getBackgroundPage(function(background){
