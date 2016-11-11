@@ -22,6 +22,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     // Show FamilySearch components on FamilySearch pages
     if(isFSTreeUrl(tabData.url)){
+      fsID = tabData.url.split('/')[5];
       document.body.classList.add('familysearch');
     }
   }
