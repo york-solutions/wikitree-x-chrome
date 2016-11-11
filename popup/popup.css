@@ -35,8 +35,8 @@ body.familysearch .group.familysearch {
 }
 
 .help {
-  text-align: right;
-  font-size: small;
+  text-align: center;
+  font-size: larger;
 }
 
 a, a:visited, a:active {
