@@ -1,3 +1,3 @@
-# wikitree-chrome-import
+# wikitree-x-chrome
 
-Chrome Extension for WikiTree enables importing data from other trees
+Chrome Extension for WikiTree that enables importing data from other trees.
