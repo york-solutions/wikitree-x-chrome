@@ -16,6 +16,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     // Save the response
     tabData = request;
+    setImportSummary(tabData.genscrape);
 
     // Hide the loading indicator
     document.body.classList.add('loaded');
@@ -141,4 +142,24 @@ function enterListener(func){
 function enterPressed(event){
   var key = event.which || event.keyCode;
   return key === 13;
+}
+
+/**
+ * Set the import summary for genscrape data
+ */
+function setImportSummary(gedx){
+  if(gedx && gedx.description && Array.isArray(gedx.sourceDescriptions)){
+    var description = gedx.sourceDescriptions.find(function(sd){
+      return sd.id === gedx.description.substring(1);
+    });
+    if(description && description.repository && Array.isArray(gedx.agents)){
+      var agent = gedx.agents.find(function(a){
+        return a.id === description.repository.resource.substring(1);
+      });
+      if(agent){
+        var person = gedx.persons.find(function(p){ return p.principal; }) || gedx.persons[0];
+        gedx.summary = 'Imported data from ' + agent.names[0].value + ' ' + person.id + '.';
+      }
+    }
+  }
 }

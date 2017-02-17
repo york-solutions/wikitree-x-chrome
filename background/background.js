@@ -60,15 +60,20 @@ function genscrapeData(tabId){
  */
 function genscrapeInject(){
   genscrape()
-    .on('data', sendMessage)
+    .on('data', function(data){
+      console.log('data');
+      sendMessage(data);
+    })
     .on('noData', function(){
+      console.log('noData');
       sendMessage({});
     })
     .on('noMatch', function(){
+      console.log('noMatch');
       sendMessage({});
     })
-    .on('error', function(){
-      // TODO: error handling
+    .on('error', function(e){
+      console.error(e);
       sendMessage({});
     });
 
