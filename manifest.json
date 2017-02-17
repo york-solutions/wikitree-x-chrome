@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "WikiTree X",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Import data into WikiTree from other online trees and record repositories.",
   "icons": {
     "16": "icons/icon-16.png",
