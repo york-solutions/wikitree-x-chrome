@@ -31,7 +31,7 @@ function post(data){
     document.getElementById('fsID').value = data.fsID;
   }
 
-  // $form.submit();
+  $form.submit();
 }
 
 // http://stackoverflow.com/a/5158301/879121

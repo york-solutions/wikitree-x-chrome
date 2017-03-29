@@ -1,11 +1,16 @@
 // Configuration
 var dev = chrome.app.getDetails().update_url ? false : true,
-    domain = dev ? 'dev4' : 'www',
+    domain = dev ? 'dev' : 'www',
     postUrl = 'https://' + domain + '.wikitree.com/wiki/Special:MergeEdit'
 
 // Store tab data sent to the background by the injected genscrape script.
 // This data is retrieved by the post page.
 var tabData = {};
+
+// Cleanup tabData when a tab closes
+chrome.tabs.onRemoved.addListener(function(tabId){
+  delete tabData[tabId];
+});
 
 // Initiate scraping when a user clicks the extension icon.
 chrome.browserAction.onClicked.addListener(function pageActionCallback(tab){
@@ -99,9 +104,7 @@ function postData(tabId, data){
  * @param {Integer} tabId
  */
 function getTabData(tabId){
-  var data = tabData[tabId];
-  delete tabData[tabId];
-  return data;
+  return tabData[tabId];
 }
 
 /**
