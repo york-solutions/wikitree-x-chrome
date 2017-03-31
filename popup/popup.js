@@ -1,6 +1,6 @@
 var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
-    domain = dev ? 'dev4' : 'www',
+    domain = dev ? 'dev' : 'www',
     mergeEditUrl = 'https://' + domain + '.wikitree.com/wiki/Special:MergeEdit',
     editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
     newPersonUrl = 'https://' + domain + '.wikitree.com/wiki/Special:NewPerson';
