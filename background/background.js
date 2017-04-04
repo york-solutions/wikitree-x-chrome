@@ -92,8 +92,11 @@ function genscrapeInject(){
  */
 function postData(tabId, data){
   tabData[tabId] = data;
-  chrome.tabs.create({
-    url: chrome.extension.getURL('/pages/post.html?page=' + tabId)
+  chrome.windows.create({
+    url: chrome.extension.getURL('/pages/post.html?page=' + tabId),
+    type: 'popup',
+    height: 600,
+    width: 600
   });
 }
 
