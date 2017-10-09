@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     // Save the response
     tabData = request;
     setImportSummary(tabData.genscrape);
+    findagraveCitationTemplate(tabData.genscrape);
 
     // Hide the loading indicator
     document.body.classList.add('loaded');
@@ -161,5 +162,19 @@ function setImportSummary(gedx){
         gedx.summary = 'Imported data from ' + agent.names[0].value + ' ' + person.id + '.';
       }
     }
+  }
+}
+
+/**
+ * Replace Find A Grave citations with the WikiTree template
+ * 
+ * @param {Object} gedx Genscrape data
+ */
+function findagraveCitationTemplate(gedx) {
+  if(gedx.persons[0].identifiers.genscrape[0].indexOf('genscrape://findagrave/memorial') === 0) {
+    var source = gedx.sourceDescriptions[0];
+    var title = source.titles[0].value.replace(' - Find A Grave Memorial', '');
+    var accessedDate = source.citations[0].value.match(/ accessed ([\w\s]+)\)/)[1];
+    gedx.sourceDescriptions[0].citations[0].value = '{{FindAGrave|' + gedx.persons[0].id + '|' + accessedDate + '|' + title + '}}';
   }
 }
