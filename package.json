@@ -1,0 +1,13 @@
+{
+  "name": "wikitree-x-chrome",
+  "version": "0.0.0",
+  "description": "Chrome Extension for WikiTree that enables importing data from other trees.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/york-solutions/wikitree-x-chrome.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "genscrape": "1.4.1"
+  }
+}

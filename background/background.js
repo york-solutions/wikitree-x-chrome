@@ -1,3 +1,5 @@
+const GENSCRAPE_PATH = 'node_modules/genscrape/dist/genscrape.min.js';
+
 /**
  * Get the URL and genscrape data of the active tab.
  *
@@ -44,7 +46,7 @@ function getActiveTab(callback){
  */
 function genscrapeData(tabId){
   chrome.tabs.executeScript(tabId, {
-    file: 'includes/genscrape.min.js'
+    file: GENSCRAPE_PATH,
   }, function(){
     chrome.tabs.executeScript(tabId, {
       code: genscrapeInject.toString() + ';genscrapeInject();'
