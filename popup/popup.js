@@ -175,6 +175,6 @@ function findagraveCitationTemplate(gedx) {
     var source = gedx.sourceDescriptions[0];
     var title = source.titles[0].value.replace(' - Find A Grave Memorial', '');
     var accessedDate = source.citations[0].value.match(/ accessed ([\w\s]+)\)/)[1];
-    gedx.sourceDescriptions[0].citations[0].value = '{{FindAGrave|' + gedx.persons[0].id + '|' + accessedDate + '|' + title + '}}';
+    gedx.sourceDescriptions[0].citations[0].value = title + " on {{FindAGrave|" + gedx.persons[0].id + '}} Retrieved ' + accessedDate + '.';
   }
 }
