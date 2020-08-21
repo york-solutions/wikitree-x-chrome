@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="messaging.css" />
+  </head>
+  <body>
+    <div class="box">
+      <h1><img src="../icons/icon-32.png" />WikiTree X</h1>
+
+      <div class="group" id="update-existing">
+        <h2>Update an Existing WikiTree Profile</h2>
+        <input type="input" id="update-existing-wt-id" placeholder="WikiTree ID" />
+        <button id="update-existing-btn">Go</button>
+      </div>
+
+      <div class="group" id="create-related">
+        <h2>Create Related WikiTree Profile</h2>
+        <select id="create-related-relation">
+          <option value="father">Father</option>
+          <option value="mother">Mother</option>
+          <option value="sibling">Sibling</option>
+          <option value="spouse">Spouse</option>
+          <option value="child">Child</option>
+        </select>
+        of
+        <input type="input" id="create-related-wt-id" placeholder="WikiTree ID" />
+        <button id="create-related-btn">Go</button>
+      </div>
+
+      <div class="group" id="create-unrelated">
+        <h2>Create Unrelated WikiTree Profile</h2>
+        <button id="create-unrelated-btn">Go</button>
+      </div>
+
+      <div class="group familysearch" id="fs-connections">
+        <h2>Edit FamilySearch Connections</h2>
+        <input type="input" id="fs-connections-wt-id" placeholder="WikiTree ID" />
+        <button id="fs-connections-btn">Go</button>
+      </div>
+
+      <div class="help">
+        <a href="https://www.wikitree.com/wiki/WikiTree_X" target="_blank">Instructions</a>
+        <img src="https://www.wikitree.com/images/icons/help.gif" />
+      </div>
+    </div>
+
+    <form id="form" method="POST" target="_blank">
+      <input id="wtId" type="hidden" name="id" />
+      <input id="wtUsername" type="hidden" name="user_name" />
+      <input id="postData" type="hidden" name="data" />
+    </form>
+
+    <script src="messaging.js"></script>
+  </body>
+</html>

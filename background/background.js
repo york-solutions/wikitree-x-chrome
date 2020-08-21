@@ -1,42 +1,4 @@
 /**
- * Get the URL and genscrape data of the active tab.
- *
- * @param  {Function} callback function(object)
- */
-function getActiveTabData(callback){
-  getActiveTab(function(tab){
-    callback({
-      url: tab.url
-    });
-  });
-}
-
-/**
- * Get the URL and genscrape data of the active tab.
- *
- * @param  {Function} callback function(object)
- */
-function getTabData(callback){
-  getActiveTab(function(tab){
-    genscrapeData(tab.id);
-  });
-}
-
-/**
- * Get the active tab.
- *
- * @param  {Function} callback function(tab)
- */
-function getActiveTab(callback){
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true
-  }, function(tabs){
-    callback(tabs[0]);
-  });
-}
-
-/**
  * Inject and run genscrape. When genscrape is done
  * it will fire a message of type 'tabData'
  *
@@ -85,3 +47,10 @@ function genscrapeInject(){
     });
   }
 }
+
+// When the extension icon is clicked, open the messaging page to wait
+// for data and then initate scraping on the active tab.
+chrome.browserAction.onClicked.addListener(function(tab) {
+  chrome.tabs.create({ url: chrome.runtime.getURL("messaging/messaging.html") });
+  genscrapeData(tab.id);
+});

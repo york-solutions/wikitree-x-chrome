@@ -1,14 +1,9 @@
 var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
-    domain = dev ? 'dev' : 'www',
-    mergeEditUrl = 'https://' + domain + '.wikitree.com/wiki/Special:MergeEdit',
+    domain = dev ? 'dev2' : 'www',
+    mergeEditUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:MergeEdit&action=wikitreex',
     editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
     newPersonUrl = 'https://' + domain + '.wikitree.com/wiki/Special:NewPerson';
-
-// Initiate the scraping
-chrome.runtime.getBackgroundPage(function(background){
-  background.getTabData();
-});
 
 // Listen for the scraping response
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -18,9 +13,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     tabData = request;
     setImportSummary(tabData.genscrape);
     findagraveCitationTemplate(tabData.genscrape);
-
-    // Hide the loading indicator
-    document.body.classList.add('loaded');
 
     // Show FamilySearch components on FamilySearch pages
     if(isFSTreeUrl(tabData.url)){
@@ -53,7 +45,7 @@ document.getElementById('fs-connections').addEventListener('keypress', enterList
  */
 function updateExisting(){
   var wtID = document.getElementById('update-existing-wt-id').value;
-  postData(mergeEditUrl, wtID, tabData.genscrape);
+  messageData(`${mergeEditUrl}&user_name=${wtID}`, tabData.genscrape);
 }
 
 /**
@@ -117,6 +109,19 @@ function postData(url, profileId, data){
 
   document.getElementById('postData').value = JSON.stringify(data);
   $form.submit();
+}
+
+/**
+ * Send data to WikiTree by opening a new window and responding to messages.
+ * 
+ * @param {string} url 
+ * @param {object} data 
+ */
+function messageData(url, data) {
+  var wikitreeWindow = window.open(url);
+  wikitreeWindow.addEventListener('message', function (event) {
+    console.log('received message', event);
+  });
 }
 
 /**
