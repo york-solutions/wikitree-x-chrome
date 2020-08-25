@@ -119,8 +119,8 @@ function postData(url, profileId, data){
  */
 function messageData(url, data) {
   var wikitreeWindow = window.open(url);
-  wikitreeWindow.addEventListener('message', function (event) {
-    console.log('received message', event);
+  window.addEventListener('message', function (event) {
+    wikitreeWindow.postMessage(data, '*');
   });
 }
 
