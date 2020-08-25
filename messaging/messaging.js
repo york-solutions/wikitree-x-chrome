@@ -121,6 +121,7 @@ function messageData(url, data) {
   var wikitreeWindow = window.open(url);
   window.addEventListener('message', function (event) {
     wikitreeWindow.postMessage(data, '*');
+    window.close();
   });
 }
 
