@@ -3,7 +3,7 @@ var tabData, fsID,
     domain = dev ? 'dev2' : 'www',
     mergeEditUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:MergeEdit&action=wikitreex',
     editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
-    newPersonUrl = 'https://' + domain + '.wikitree.com/wiki/Special:NewPerson';
+    newPersonUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:NewPerson';
 
 // Listen for the scraping response
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -64,14 +64,14 @@ function fsConnect(){
 function createRelated(){
   var wtID = document.getElementById('create-related-wt-id').value,
       relation = document.getElementById('create-related-relation').value;
-  postData(editFamilyUrl + '&w=' + relation + '&title=' + wtID, '', tabData.genscrape);
+  messageData(`${editFamilyUrl}&wikitreex=1&w=${relation}&title=${wtID}`, tabData.genscrape);
 }
 
 /**
  * Create a new profile related to the given WikiTree profile
  */
 function createUnrelated(){
-  postData(newPersonUrl, '', tabData.genscrape);
+  messageData(`${newPersonUrl}&wikitreex=1`, tabData.genscrape);
 }
 
 /**
@@ -82,33 +82,6 @@ function createUnrelated(){
  */
 function isFSTreeUrl(url){
   return url.indexOf('https://familysearch.org/tree/person/') === 0;
-}
-
-/**
- * POST JSON data to the specified URL
- *
- * @param  {string} url
- * @param  {string} profileId
- * @param  {object} data
- */
-function postData(url, profileId, data){
-  var $form = document.getElementById('form'),
-      $wtId = document.getElementById('wtId'),
-      $wtUsername = document.getElementById('wtUsername');
-
-  $form.action = url;
-
-  // Decide whether we have a user ID or a profile name
-  if(profileId){
-    if(parseInt(profileId, 10)){
-      $wtId.value = profileId;
-    } else {
-      $wtUsername.value = profileId;
-    }
-  }
-
-  document.getElementById('postData').value = JSON.stringify(data);
-  $form.submit();
 }
 
 /**
