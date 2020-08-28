@@ -1,14 +1,9 @@
 var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
-    domain = dev ? 'dev' : 'www',
-    mergeEditUrl = 'https://' + domain + '.wikitree.com/wiki/Special:MergeEdit',
+    domain = dev ? 'dev2' : 'www',
+    mergeEditUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:MergeEdit&action=wikitreex',
     editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
-    newPersonUrl = 'https://' + domain + '.wikitree.com/wiki/Special:NewPerson';
-
-// Initiate the scraping
-chrome.runtime.getBackgroundPage(function(background){
-  background.getTabData();
-});
+    newPersonUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:NewPerson';
 
 // Listen for the scraping response
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -18,9 +13,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     tabData = request;
     setImportSummary(tabData.genscrape);
     findagraveCitationTemplate(tabData.genscrape);
-
-    // Hide the loading indicator
-    document.body.classList.add('loaded');
 
     // Show FamilySearch components on FamilySearch pages
     if(isFSTreeUrl(tabData.url)){
@@ -53,7 +45,7 @@ document.getElementById('fs-connections').addEventListener('keypress', enterList
  */
 function updateExisting(){
   var wtID = document.getElementById('update-existing-wt-id').value;
-  postData(mergeEditUrl, wtID, tabData.genscrape);
+  messageData(`${mergeEditUrl}&user_name=${wtID}`, tabData.genscrape);
 }
 
 /**
@@ -72,14 +64,14 @@ function fsConnect(){
 function createRelated(){
   var wtID = document.getElementById('create-related-wt-id').value,
       relation = document.getElementById('create-related-relation').value;
-  postData(editFamilyUrl + '&w=' + relation + '&title=' + wtID, '', tabData.genscrape);
+  messageData(`${editFamilyUrl}&wikitreex=1&w=${relation}&title=${wtID}`, tabData.genscrape);
 }
 
 /**
  * Create a new profile related to the given WikiTree profile
  */
 function createUnrelated(){
-  postData(newPersonUrl, '', tabData.genscrape);
+  messageData(`${newPersonUrl}&wikitreex=1`, tabData.genscrape);
 }
 
 /**
@@ -93,30 +85,17 @@ function isFSTreeUrl(url){
 }
 
 /**
- * POST JSON data to the specified URL
- *
- * @param  {string} url
- * @param  {string} profileId
- * @param  {object} data
+ * Send data to WikiTree by opening a new window and responding to messages.
+ * 
+ * @param {string} url 
+ * @param {object} data 
  */
-function postData(url, profileId, data){
-  var $form = document.getElementById('form'),
-      $wtId = document.getElementById('wtId'),
-      $wtUsername = document.getElementById('wtUsername');
-
-  $form.action = url;
-
-  // Decide whether we have a user ID or a profile name
-  if(profileId){
-    if(parseInt(profileId, 10)){
-      $wtId.value = profileId;
-    } else {
-      $wtUsername.value = profileId;
-    }
-  }
-
-  document.getElementById('postData').value = JSON.stringify(data);
-  $form.submit();
+function messageData(url, data) {
+  var wikitreeWindow = window.open(url);
+  window.addEventListener('message', function (event) {
+    wikitreeWindow.postMessage(data, '*');
+    window.close();
+  });
 }
 
 /**
