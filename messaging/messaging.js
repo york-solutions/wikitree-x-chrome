@@ -2,8 +2,8 @@ var tabData, fsID,
     dev = chrome.app.getDetails().update_url ? false : true,
     domain = dev ? 'dev2' : 'www',
     mergeEditUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:MergeEdit&action=wikitreex',
-    editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?action=editfamily',
-    newPersonUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:NewPerson';
+    editFamilyUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:EditFamily',
+    newPersonUrl = 'https://' + domain + '.wikitree.com/index.php?title=Special:EditFamily&who=new';
 
 // Listen for the scraping response
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -64,7 +64,7 @@ function fsConnect(){
 function createRelated(){
   var wtID = document.getElementById('create-related-wt-id').value,
       relation = document.getElementById('create-related-relation').value;
-  messageData(`${editFamilyUrl}&wikitreex=1&w=${relation}&title=${wtID}`, tabData.genscrape);
+  messageData(`${editFamilyUrl}&wikitreex=1&who=${relation}&w=${wtID}`, tabData.genscrape);
 }
 
 /**
